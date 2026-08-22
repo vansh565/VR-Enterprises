@@ -1785,6 +1785,8 @@
 </script>
         <!-- ===== Testimonials ===== -->
        <!-- ===== Why Choose Our Mustard Oil ===== -->
+<!-- ===== Why Choose Our Mustard Oil - Complete Section ===== -->
+
 <style>
   /* =========================================================
      Why Choose Our Mustard Oil - Product Features
@@ -1798,7 +1800,6 @@
     overflow: hidden;
   }
 
-  /* Subtle background glow */
   .product-features::before {
     content: '';
     position: absolute;
@@ -1895,6 +1896,13 @@
     backdrop-filter: blur(4px);
     position: relative;
     cursor: default;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .feature-item.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .feature-item:hover {
@@ -2013,87 +2021,23 @@
     margin: 0;
   }
 
-  /* ===== Bottom Banner - 100% Pure & Natural ===== */
-  .features-banner {
-    margin-top: 3rem;
-    padding: 1.5rem 2rem;
-    background: rgba(230, 195, 74, 0.06);
-    border: 1px solid rgba(230, 195, 74, 0.12);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    position: relative;
-    z-index: 1;
-    transition: all 0.4s ease;
-  }
-
-  .features-banner:hover {
-    border-color: rgba(230, 195, 74, 0.25);
-    background: rgba(230, 195, 74, 0.08);
-    transform: translateY(-2px);
-  }
-
-  .features-banner .banner-icon {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: rgba(230, 195, 74, 0.12);
-    border: 2px solid rgba(230, 195, 74, 0.15);
-    transition: all 0.4s ease;
-  }
-
-  .features-banner:hover .banner-icon {
-    background: rgba(230, 195, 74, 0.2);
-    border-color: #e6c34a;
-    transform: scale(1.05);
-  }
-
-  .features-banner .banner-icon i {
-    font-size: 1.6rem;
-    color: #e6c34a;
-  }
-
-  .features-banner .banner-content {
-    text-align: center;
-  }
-
-  .features-banner .banner-content h4 {
-    color: #faf6ec;
-    font-size: 1.3rem;
-    margin-bottom: 0.2rem;
-    font-family: "Playfair Display", Georgia, serif;
-    font-weight: 600;
-  }
-
-  .features-banner .banner-content p {
-    color: rgba(250, 246, 236, 0.7);
-    font-size: 0.95rem;
-    font-weight: 300;
-    margin: 0;
-  }
-
- 
-
-  .features-grid .feature-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
+  /* ===== Staggered Animation Delays ===== */
   .features-grid .feature-item:nth-child(1) { transition-delay: 0.05s; }
   .features-grid .feature-item:nth-child(2) { transition-delay: 0.1s; }
   .features-grid .feature-item:nth-child(3) { transition-delay: 0.15s; }
   .features-grid .feature-item:nth-child(4) { transition-delay: 0.2s; }
+  .features-grid .feature-item:nth-child(5) { transition-delay: 0.25s; }
+  .features-grid .feature-item:nth-child(6) { transition-delay: 0.3s; }
 
   /* =========================================================
      RESPONSIVE
-     ============================================ ============= */
+     ========================================================= */
 
- 
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 
   @media (max-width: 768px) {
     .product-features {
@@ -2114,7 +2058,6 @@
       width: 48px;
       height: 48px;
       border-radius: 12px;
-      flex-shrink: 0;
     }
     
     .feature-icon i {
@@ -2135,29 +2078,6 @@
       font-size: 0.45rem;
       top: -6px;
       right: -6px;
-    }
-
-    .features-banner {
-      padding: 1.5rem;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .features-banner .banner-icon {
-      width: 48px;
-      height: 48px;
-    }
-
-    .features-banner .banner-icon i {
-      font-size: 1.3rem;
-    }
-
-    .features-banner .banner-content h4 {
-      font-size: 1.1rem;
-    }
-
-    .features-banner .banner-content p {
-      font-size: 0.85rem;
     }
   }
 
@@ -2200,27 +2120,6 @@
       height: 16px;
       font-size: 0.4rem;
     }
-
-    .features-banner {
-      padding: 1rem;
-    }
-
-    .features-banner .banner-icon {
-      width: 40px;
-      height: 40px;
-    }
-
-    .features-banner .banner-icon i {
-      font-size: 1.1rem;
-    }
-
-    .features-banner .banner-content h4 {
-      font-size: 1rem;
-    }
-
-    .features-banner .banner-content p {
-      font-size: 0.8rem;
-    }
   }
 
   /* =========================================================
@@ -2244,7 +2143,7 @@
   }
 </style>
 
-<!-- ===== Why Choose Our Mustard Oil ===== -->
+<!-- ===== HTML ===== -->
 <section class="section product-features" id="features">
   <div class="container">
     <div class="section-head reveal">
@@ -2302,7 +2201,44 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- ===== JavaScript ===== -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // ===== Staggered Animation for Features =====
+    const features = document.querySelectorAll('.feature-item');
+    
+    if (features.length && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const allFeatures = document.querySelectorAll('.feature-item');
+            allFeatures.forEach((item, index) => {
+              setTimeout(() => {
+                item.classList.add('visible');
+              }, index * 100);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      observer.observe(features[0]);
+    } else {
+      // Fallback for older browsers
+      features.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('visible');
+        }, index * 100);
+      });
+    }
+  });
+</script>
     <!-- Bottom Banner -->
  
   </div>
