@@ -2768,3 +2768,24 @@ h1, h2, h3, h4 {
     transition: none !important;
   }
 }
+/* ===== Factory Video Section - Portrait Mode ===== */
+.video-wrap {
+  max-width: 400px;        /* Narrow portrait container */
+  width: 100%;
+  margin: 0 auto;          /* Centers it */
+  aspect-ratio: 9 / 16;    /* Portrait 9:16 ratio (like phone screens) */
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #000;
+  position: relative;
+}
+
+.factory-video-player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* Fills the portrait frame, crops sides */
+  object-position: center; /* Keeps the center of the video visible */
+  border-radius: var(--radius);
+}
