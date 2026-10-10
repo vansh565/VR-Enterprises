@@ -2768,7 +2768,15 @@ h1, h2, h3, h4 {
     transition: none !important;
   }
 }
-/* ===== Factory Video Section - Portrait Mode ===== */
+.factory-video-player {
+  display: block;
+  width: 100%;
+  height: auto;        /* Let height adjust naturally */
+  max-height: 80vh;    /* Prevents it from being too tall on screen */
+  object-fit: contain; /* THIS IS THE KEY FIX: Shows the whole video without zooming */
+  border-radius: var(--radius);
+  background: #000;    /* Black background for any empty space */
+}/* ===== Factory Video Section - Portrait Mode ===== */
 .video-wrap {
   max-width: 400px;        /* Narrow portrait container */
   width: 100%;
@@ -2788,4 +2796,13 @@ h1, h2, h3, h4 {
   object-fit: cover;       /* Fills the portrait frame, crops sides */
   object-position: center; /* Keeps the center of the video visible */
   border-radius: var(--radius);
+}
+
+.factory-video-player:fullscreen,
+.factory-video-player:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  object-fit: contain;
+  border-radius: 0;
 }
