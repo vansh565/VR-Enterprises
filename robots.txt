@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /test/
+
+Sitemap: https://www.vrenterprises.in/sitemap.xml
